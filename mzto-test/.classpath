@@ -12,15 +12,14 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/lib/slf4j-1.7.25/slf4j-api-1.7.25.jar" sourcepath="D:/lib/slf4j-1.7.25/slf4j-ext-1.7.25-sources.jar"/>
+	<classpathentry kind="lib" path="D:/lib/logback-1.2.3/logback-classic-1.2.3.jar" sourcepath="D:/lib/logback-1.2.3/logback-classic-1.2.3-sources.jar"/>
+	<classpathentry kind="lib" path="D:/lib/logback-1.2.3/logback-core-1.2.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
