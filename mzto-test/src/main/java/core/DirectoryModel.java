@@ -16,9 +16,7 @@ public class DirectoryModel {
 	
 	private Set<String> attrsToCheck = new HashSet<String>();
 	private HashMap<String,HashMap<String,Object>> files = new HashMap<String,HashMap<String, Object>>();
-	public final Path directory; 
-	private final LinkOption lo = LinkOption.NOFOLLOW_LINKS;
-	private boolean toFollowLinks = false;
+	public final Path directory; 	
 	private Set<DirectoryEventListener> listeners = new HashSet<DirectoryEventListener>();
 	
 	

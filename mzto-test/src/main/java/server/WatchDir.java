@@ -54,8 +54,7 @@ import core.FileAttrs;
 public class WatchDir implements Runnable{
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 	
-    private final WatchService watcher;
-    private WatchKey key;
+    private final WatchService watcher;    
     private final Path dir;    
     private DirectoryModel model;
     private Set<String> attrs;
@@ -86,7 +85,7 @@ public class WatchDir implements Runnable{
         attrs = checkAttrs(strings);
         model.setFileAttributes(attrs);
         model.initialize(FileReader.readFiles(dir, attrs));
-        key = dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY, OVERFLOW);
+        dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY, OVERFLOW);
         
         
         logger.info(" WatchDir started for directory {} ", dir);
