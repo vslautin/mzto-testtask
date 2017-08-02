@@ -20,21 +20,21 @@ public class MQTTMessageClient{
 	public MQTTMessageClient()  throws MqttException{
 		
 		ClientId = MqttClient.generateClientId();	
-		if(MQTTConfig.memoryPersistance)
+		if(MQTTDefaultConfig.memoryPersistance)
 			persistance = new MemoryPersistence();
 		else
 			persistance = new MqttDefaultFilePersistence();		
-		client = new MqttClient(MQTTConfig.brockerAddres, ClientId, persistance); 
+		client = new MqttClient(MQTTDefaultConfig.brockerAddres, ClientId, persistance); 
 		logger.info("MQTTClient started, clientId = {}", ClientId);
 	}
 	
 public void setWill() throws UnsupportedEncodingException {		 
-	options.setWill( MQTTConfig.willTopic, MQTTConfig.willPayload.getBytes("UTF_8"), MQTTConfig.willQoS, MQTTConfig.isWillRetained);
+	options.setWill( MQTTDefaultConfig.willTopic, MQTTDefaultConfig.willPayload.getBytes("UTF_8"), MQTTDefaultConfig.willQoS, MQTTDefaultConfig.isWillRetained);
 }
 
 public void setUsernamePassword() throws UnsupportedEncodingException {		 
-	options.setUserName(MQTTConfig.username);
-	options.setPassword(MQTTConfig.password.toCharArray());
+	options.setUserName(MQTTDefaultConfig.username);
+	options.setPassword(MQTTDefaultConfig.password.toCharArray());
 }
 
 	
@@ -46,8 +46,8 @@ public void setUsernamePassword() throws UnsupportedEncodingException {
 	}
 	
 	public void publish() throws MqttPersistenceException, UnsupportedEncodingException, MqttException {
-		logger.info("MQTTClient {} publishing message to topic = {}", MQTTConfig.publishTopic);
-		client.publish(MQTTConfig.publishTopic, MQTTConfig.publishPayload.getBytes("UTF-8"), MQTTConfig.publishQoS, MQTTConfig.isPublishRetained);
+		logger.info("MQTTClient {} publishing to topic = {} message = \"{}\"", ClientId, MQTTDefaultConfig.publishTopic, MQTTDefaultConfig.publishPayload);
+		client.publish(MQTTDefaultConfig.publishTopic, MQTTDefaultConfig.publishPayload.getBytes("UTF-8"), MQTTDefaultConfig.publishQoS, MQTTDefaultConfig.isPublishRetained);
 	}
 	
 	public void subscribe(MqttCallback callback) throws MqttSecurityException, MqttException {
@@ -55,7 +55,7 @@ public void setUsernamePassword() throws UnsupportedEncodingException {
 		logger.info("MQTTClient {} connecting to brocker = {}", ClientId, client.getServerURI());
 		client.connect();
 		logger.info("MQTTClient {} connection succesfull", ClientId);
-		logger.info("MQTTClient {} subscribing to topic {}", ClientId, MQTTConfig.publishTopic);
-		client.subscribe(MQTTConfig.publishTopic, 2);
+		logger.info("MQTTClient {} subscribing to topic {}", ClientId, MQTTDefaultConfig.publishTopic);
+		client.subscribe(MQTTDefaultConfig.publishTopic, 2);
 	}
 }

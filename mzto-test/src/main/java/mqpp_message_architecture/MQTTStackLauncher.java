@@ -15,9 +15,10 @@ public class MQTTStackLauncher {
 		ClientManager manager = new ClientManager();
 		try {
 			MQTTMessageClient sender = new MQTTMessageClient();
-			//sender.connect();
-			//sender.publish();
-			sender.subscribe(manager);
+			sender.connect();
+			sender.publish();
+			MQTTMessageClient reciever = new MQTTMessageClient();
+			reciever.subscribe(manager);
 		} catch (MqttException e) {
 			// TODO Auto-generated catch block
 			logger.warn("{}", e);
