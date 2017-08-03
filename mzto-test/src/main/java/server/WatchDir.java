@@ -72,14 +72,9 @@ public class WatchDir implements Runnable{
      * TODO: add consistency check for dir
      */        
     
-    public WatchDir(DirectoryModel dm, Path dir,  Set<String> strings) throws WatchDirException, IOException {
-    	model = dm; 
-    	if(!checkPath(dir)) {
-    		WatchDirException e = new WatchDirException("wrong Path parameter");    		
-    		logger.error("{}",  e);
-    		throw e;
-    	}    	   	
-    	this.dir = dir;    	
+    public WatchDir(DirectoryModel dm,  Set<String> strings) throws WatchDirException, IOException {
+    	model = dm;     	  	   
+    	this.dir = dm.getDirectory();    	
         this.watcher = FileSystems.getDefault().newWatchService();         
         model = dm;
         attrs = checkAttrs(strings);
@@ -90,12 +85,7 @@ public class WatchDir implements Runnable{
         
         logger.info(" WatchDir started for directory {} ", dir);
     }
-    
-    
-	private boolean checkPath(Path dir) {
-		boolean result = true;
-		return result;
-	}
+        	
 	
 	private Set<String> checkAttrs(Set<String> strings) {
 		HashSet<String> result = new HashSet<String>();

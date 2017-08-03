@@ -17,7 +17,8 @@ public class MQTTDefaultConfig {
 	public static final String username = "user";
 	public static final String password = "pass";
 	
-	public static final String publishTopic = "testtopic20";
+	public static final String updateTopic = "testtopic20";
+	public static final String fullListTopic = "testtopic30";
 	public static final String publishPayload = "testPayload76";
 	public static final int publishQoS = 2;
 	public static final boolean isPublishRetained = true;

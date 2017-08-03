@@ -16,9 +16,12 @@ public class DirectoryModel {
 	
 	private Set<String> attrsToCheck = new HashSet<String>();
 	private HashMap<String,HashMap<String,Object>> files = new HashMap<String,HashMap<String, Object>>();
-	public final Path directory; 	
+	public Path directory; 	
 	private Set<DirectoryEventListener> listeners = new HashSet<DirectoryEventListener>();
 	
+	
+	public DirectoryModel() {		
+	}
 	
 	public DirectoryModel(Path directory) {		
 		this.directory = directory;	
@@ -68,7 +71,7 @@ public class DirectoryModel {
 	
 	public void deleteFile(String str) {
 		if(!files.containsKey(str)) {
-			logger.error("removed file was already in absence");			
+			logger.error("removed file was already removed");			
 		}
 		else{
 			files.remove(str);
@@ -108,22 +111,22 @@ public class DirectoryModel {
 	}
 	
 	private void fireInitializeEvent() {
-		DirectoryEvent<DirectoryModel> event = new DirectoryEvent<DirectoryModel>(this);
+		DirectoryEvent<HashMap<String,HashMap<String,Object>>> event = new DirectoryEvent<HashMap<String,HashMap<String,Object>>>(this, DirectoryEvent.EventType.INIT , files);
 		for(DirectoryEventListener l : listeners)
 			l.initialized(event);
 	}
 	private void fireAddEvent(String name) {
-		DirectoryEvent<HashMap<String,Object>> event = new DirectoryEvent<HashMap<String,Object>>(this,name, files.get(name));
+		DirectoryEvent<HashMap<String,Object>> event = new DirectoryEvent<HashMap<String,Object>>(this, DirectoryEvent.EventType.ADD, name, files.get(name));
 		for(DirectoryEventListener l : listeners)
 			l.fileAdded(event);
 	}
 	private void fireDeleteEvent(String name) {
-		DirectoryEvent<String> event = new DirectoryEvent<String>(this,name);
+		DirectoryEvent<String> event = new DirectoryEvent<String>(this, DirectoryEvent.EventType.DEL, name);
 		for(DirectoryEventListener l : listeners)
 			l.fileDeleted(event);
 	}
 	private void fireModifyEvent(String name,HashMap<String,Object> modifiedAttrs ) {
-		DirectoryEvent<HashMap<String,Object>> event = new DirectoryEvent<HashMap<String,Object>>(this,name, modifiedAttrs);
+		DirectoryEvent<HashMap<String,Object>> event = new DirectoryEvent<HashMap<String,Object>>(this, DirectoryEvent.EventType.MOD, name, modifiedAttrs);
 		for(DirectoryEventListener l : listeners)
 			l.fileModified(event);
 	}
